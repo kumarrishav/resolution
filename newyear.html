@@ -1,0 +1,162 @@
+<html>
+<head>
+<!--FOXILLA APP-OF THE MONTH Jan 2014-->
+</head>
+
+<body>
+
+<style>
+
+*{
+margin: 0px;
+padding: 0px;
+}
+
+body{
+background-color: #333333;
+}
+
+</style>
+
+<a href="count.html" id="backbutton" style="display: block"><center><font color="blue"><strong>
+<BR>BACK
+</strong></font></center></a>
+
+<div id="back" style="display: block;">
+</div>
+
+<div id="goodbad" style="background-color: black; z-index: 1000; border: 5px #999999 solid; position: absolute; left: 14%; top: 30%; display: none;">
+<table>
+<tr>
+<td><center><strong><font color="white">FOLLOWED</font></strong></center></td>
+<td><center><strong><font color="white">DEVIATED</font></strong></center></td>
+</tr>
+
+<tr>
+<td><img id="tick" src="tick.jpg" onclick="setImg(1);" /></td>
+<td><img id="cross" src="redcross.jpg" onclick="setImg(0);" /></td>
+</tr>
+</table>
+</div>
+
+<script>
+
+document.getElementById('cross').style.width=parseInt(window.innerWidth/3);
+document.getElementById('cross').style.height=parseInt(window.innerWidth/3);
+document.getElementById('tick').style.width=parseInt(window.innerWidth/3);
+document.getElementById('tick').style.height=parseInt(window.innerWidth/3);
+document.getElementById('goodbad').style.width=parseInt(window.innerWidth*7/10);
+var nodes=new Array(365);
+var nodes_in_row=4;
+var nodes_in_col=5;
+var leftp=0;
+var topp=50;
+var current_node=-1;
+
+function setImg(j)
+	{
+	//nodes[current_node].innerHTML=nodes[current_node].innerHTML+"<BR>";
+	var node_no=current_node+1;
+	var img=document.createElement('img');
+	
+	img.style.width=(window.innerWidth/nodes_in_row)*3/4;
+	img.style.height=(window.innerWidth/nodes_in_row)*3/4;
+	if(j==1){
+		localStorage.setItem("key_no_followed",parseInt(localStorage.getItem("key_no_followed"))+1);
+		localStorage.setItem("key_no_deviated",parseInt(localStorage.getItem("key_no_deviated"))+0);
+		localStorage.setItem("key_no_waiting",localStorage.getItem("key_no_waiting")-1);
+		localStorage.setItem("key_"+node_no,1);
+		img.src="tick.jpg";
+		nodes[current_node].style.color="green";
+		}
+	else{
+		localStorage.setItem("key_no_followed",parseInt(localStorage.getItem("key_no_followed"))+0);
+		localStorage.setItem("key_no_deviated",parseInt(localStorage.getItem("key_no_deviated"))+1);
+		localStorage.setItem("key_no_waiting",localStorage.getItem("key_no_waiting")-1);
+		localStorage.setItem("key_"+node_no,2);
+		img.src="redcross.jpg";
+		nodes[current_node].style.color="red";
+		}
+	img.style.position="relative";
+	img.style.left=(window.innerWidth/nodes_in_row)/8;
+	img.style.top=(window.innerHeight/nodes_in_col)-img.style.width;
+	
+	nodes[current_node].appendChild(img);
+	
+	current_node=-1;
+	document.getElementById('backbutton').style.display="block";
+	document.getElementById('back').style.display="block";
+	document.getElementById('goodbad').style.display="none";
+	}
+
+function evaluate(e)
+	{
+	document.getElementById('back').style.display="none";
+	document.getElementById('goodbad').style.display="block";
+	document.getElementById('backbutton').style.display="none";
+	current_node=parseInt(e.target.id);
+	e.target.removeEventListener("click",evaluate);
+	}
+
+for(var i=0;i<365;i++)
+	{
+	console.log(leftp);
+	nodes[i]=document.createElement('div');
+	nodes[i].id=i;
+	nodes[i].style.width=parseInt(window.innerWidth/nodes_in_row);
+	nodes[i].style.height=parseInt(window.innerHeight/nodes_in_col);
+	nodes[i].style.border="3px blue solid";
+	nodes[i].style.backgroundColor="#000000";
+	
+	nodes[i].style.position="absolute";
+	nodes[i].style.left=leftp+"px";
+	nodes[i].style.top=topp+"px";
+	
+	nodes[i].style.color="white";
+	nodes[i].innerHTML="<center>Day "+(i+1)+"</center>";
+	leftp+=parseInt(window.innerWidth/nodes_in_row);
+		
+	nodes[i].addEventListener("click",evaluate);
+	
+	if((i+1)%nodes_in_row==0)
+		{
+		leftp=0;
+		topp+=parseInt(window.innerHeight/nodes_in_col);
+		}
+		
+	document.getElementById('back').appendChild(nodes[i]);
+	
+	}
+
+window.onload=function()
+	{
+	for(var i=0;i<localStorage.length;i++)
+		{
+		if(localStorage.getItem(localStorage.key(i))!=0 && localStorage.key(i).slice(0,4)=="key_")
+			{
+			var j=localStorage.key(i).slice(4)-1;
+			var img=document.createElement('img');
+			img.style.width=(window.innerWidth/nodes_in_row)*3/4;
+			img.style.height=(window.innerWidth/nodes_in_row)*3/4;
+			if(localStorage.getItem(localStorage.key(i))==1){
+				img.src="tick.jpg";
+				nodes[j].style.color="green";
+				}
+			else{
+				img.src="redcross.jpg";
+				nodes[j].style.color="red";
+				}
+			img.style.position="relative";
+			img.style.left=(window.innerWidth/nodes_in_row)/8;
+			img.style.top=(window.innerHeight/nodes_in_col)-img.style.width;
+	
+			nodes[j].appendChild(img);
+			}
+		}
+	
+	}
+	
+</script>
+
+</body>
+</html>

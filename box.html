@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+<style>
+body
+{
+background: url(menu_bg.png) repeat;
+}
+#heading
+{
+Position:absolute;
+top:0;
+left:5%;
+font-size:17px;
+font-face:arial;
+color:White;
+}
+#title
+{
+font-size:20px;
+font-face:arial;
+}
+#outer_box
+{
+  width:100%;
+  height:100%;
+  border: 0.1rem solid white;
+  border-radius: 2px;
+
+}
+#submit
+{
+Position:absolute;
+top:220px;
+left:29%;
+}
+</style>
+<script>
+function cli()
+{
+
+var date=new Date();
+var count=0;
+var datetime="RESOLUTION DATE "+"  "+(date.toString()).slice(0,25);
+		  
+	if(typeof(Storage)!=="undefined" && noteform.title.value!="")
+	  {
+	localStorage.setItem(datetime,noteform.title.value);
+	localStorage.setItem("key_no_followed",0);
+	localStorage.setItem("key_no_deviated",0);
+	localStorage.setItem("key_no_waiting",365);
+	for(var i=1;i<=365;i++)
+	{
+	localStorage.setItem("key_"+i,0)
+	}
+	window.location.assign("count.html");
+	  }
+}
+
+
+</script>
+<body bgcolor="#5F9EA0">
+<div id="outer_box">
+<img src="header.png" style="width:99%;height:15%; border: 0.1rem solid green; border-radius: 2px;"">
+<div id="heading"><h3>NEW &nbsp;&nbsp;YEAR&nbsp;&nbsp;RESOLUTION</h3></div>
+			  <form name="noteform">
+              <p><textarea id="title" placeholder="Your Resolution" style="width:98%;" rows="4"></textarea></p>
+			</form>
+			<div id="submit"><img src="images1.jpg" width="150px" height="50px" style="border: 0.1rem solid green; border-radius: 2px;" onclick="cli()"></div><br><br><br><br>
+			<img src="download2.jpg" style="width:99%;height:100%;border: 0.1rem solid black; border-radius: 2px;">
+</div>
+</body>
+</html>

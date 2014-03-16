@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+<head>
+<style>
+body
+{
+background: url(menu_bg.png) repeat;
+}
+#reso
+{
+position:absolute;
+top:16%;
+top:16%;
+left:0;
+Width:99%;
+height:20%;
+background:#7FFFD4;
+border: 0.1rem solid; 
+border-radius: 2px;
+border: 0.1rem solid blue; 
+}
+#reset
+{
+position:absolute;
+top:90%;
+left:0;
+Width:99%;
+height:13%;
+background:#8B0000;
+border: 0.1rem solid; 
+border-radius: 6px;
+border: 0.1rem solid yellow; 
+}
+#tracker
+{
+position:absolute;
+top:75%;
+left:22%;
+Width:55%;
+height:12%;
+background:#BA55D3;
+border: 0.1rem dotted; 
+border-radius: 20px;
+border: 0.1rem solid black; 
+}
+#inner_box_1
+{
+position:absolute;
+top:40%;
+left:1%;
+Width:100px;
+height:110px;
+background:green;
+border: 0.1rem solid white; 
+border-radius: 3px;
+}
+#inner_box_2
+{
+position:absolute;
+top:40%;
+left:34%;
+Width:100px;
+height:110px;
+background:red;
+border: 0.1rem solid white; 
+border-radius: 3px;
+}
+#inner_box_3
+{
+position:absolute;
+top:40%;
+left:67%;
+Width:100px;
+height:110px;
+background:yellow;
+border: 0.1rem solid white; 
+border-radius: 3px;
+}
+</style>
+<script>
+window.onload=function()
+{
+for (i = 0; i < localStorage.length; i++)
+		{
+	      key = localStorage.key(localStorage.length-i-1);
+	      if(key.slice(0,15)=="RESOLUTION DATE")
+		  {document.getElementById("reso").innerHTML=localStorage.getItem(key);
+		  break;
+		  }
+		  }
+document.getElementById("num1").innerHTML=localStorage.getItem("key_no_followed");
+document.getElementById("num2").innerHTML=localStorage.getItem("key_no_deviated");
+document.getElementById("num3").innerHTML=localStorage.getItem("key_no_waiting");		  
+		  
+}
+function clean()
+{
+var r=confirm("Do you Wanna Reset?");
+
+if(r==true)
+{
+localStorage.clear();
+window.location.assign("blank.html");
+}/*for (var i = 0; i < localStorage.length; i++)
+		{
+	      key = localStorage.key(0);
+	      if(key.slice(0,15)=="RESOLUTION DATE" || key.slice(0,3)=="key")
+		  localStorage.removeItem(key);
+		  }
+		  */
+
+}
+
+</script>
+<body bgcolor="#5F9EA0">
+<div id="outer_box">
+<h3 align="center" style="font-size:20px;color:white;"><i>My &nbsp;RESOLUTION&nbsp; Status</i></h3>
+<div id ="reso" style="font-size:20px;color:black;">
+</div>
+<div id ="inner_box_1">
+<p align="center" style="font-size:18px;color:black;"><b>Followed</b></p>
+<div id ="num1" style="font-size:45px;color:black;" align="center">
+</div>
+</div>
+<div id ="inner_box_2">
+<p align="center" style="font-size:18px;color:black;"><b>Deviated</b></p>
+<div id ="num2" style="font-size:45px;color:black;" align="center">
+</div>
+</div>
+<div id ="inner_box_3">
+<p align="center" style="font-size:18px;color:black;"><b>Waiting</b></p>
+<div id ="num3" style="font-size:45px;color:black;" align="center">
+</div>
+</div>
+<a href ="newyear.html" id ="tracker" style="text-decoration:none">
+<p align="center" style="font-size:18px;color:Black;"><b>DAILY TRACKER</b></p>
+</a>
+<div id="reset">
+<p align="center" style="font-size:17px;color:white;" onclick="clean()"><b>Reset Your Resolution</b></p>
+</div>
+</div>
+</body>
+</html>

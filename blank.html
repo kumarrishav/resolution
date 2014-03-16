@@ -1,0 +1,33 @@
+<html>
+<head>
+</head>
+<body>
+<script>
+var count=0;
+if(localStorage.length!=0)
+{
+for (var i = 0; i < localStorage.length; i++)
+		{
+	      key = localStorage.key(localStorage.length-i-1);
+	      if(key.slice(0,15)=="RESOLUTION DATE")
+		  count++;
+		  }
+		  if (count!=0)
+          window.location.assign("count.html");
+		  else
+		 {
+		 if(typeof(Storage)!=="undefined")
+	     {
+	window.location.assign("box.html");
+		  }
+		  }
+}
+ else
+{		  
+	window.location.assign("box.html");
+	  
+}
+
+</script>
+</body>
+</html>
